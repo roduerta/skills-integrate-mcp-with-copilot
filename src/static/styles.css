@@ -16,12 +16,64 @@ body {
 }
 
 header {
+  position: relative;
   text-align: center;
-  padding: 20px 0;
+  padding: 64px 20px 20px;
   margin-bottom: 30px;
   background-color: #1a237e;
   color: white;
   border-radius: 5px;
+}
+
+.teacher-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.teacher-controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teacher-controls svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.teacher-login-panel {
+  width: min(320px, calc(100vw - 40px));
+  margin-top: 8px;
+  padding: 16px;
+  color: #333;
+  text-align: left;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.teacher-login-panel .form-group {
+  margin-bottom: 12px;
+}
+
+.teacher-login-panel input {
+  width: 100%;
+  padding: 8px;
+}
+
+.teacher-session {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.teacher-session[hidden] {
+  display: none;
 }
 
 header h1 {
