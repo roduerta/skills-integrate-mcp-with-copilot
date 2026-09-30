@@ -18,8 +18,15 @@ A super simple FastAPI application that allows students to view and sign up for 
 2. Run the application:
 
    ```
-   python app.py
+   cd src
+   export TEACHER_USERNAME=teacher
+   export TEACHER_PASSWORD='choose-a-unique-password'
+   export SESSION_SECRET="$(python -c 'import secrets; print(secrets.token_urlsafe(32))')"
+   export COOKIE_SECURE=false
+   uvicorn app:app --reload
    ```
+
+   Set `COOKIE_SECURE=false` only for local HTTP development. Use `true` when serving the app over HTTPS. Keep these values in the deployment environment; do not commit credentials or session secrets to the repository.
 
 3. Open your browser and go to:
    - API documentation: http://localhost:8000/docs
@@ -30,7 +37,13 @@ A super simple FastAPI application that allows students to view and sign up for 
 | Method | Endpoint                                                          | Description                                                         |
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
 | GET    | `/activities`                                                     | Get all activities with their details and current participant count |
+| POST   | `/auth/login`                                                     | Sign in as a teacher and create a secure session                    |
+| GET    | `/auth/session`                                                   | Check whether the current browser has a teacher session              |
+| POST   | `/auth/logout`                                                    | End the current teacher session                                      |
 | POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| DELETE | `/activities/{activity_name}/unregister?email=student@mergington.edu` | Remove a student from an activity                                   |
+
+Only authenticated teachers can register or unregister students. Teacher sessions expire after eight hours and use a signed, HttpOnly cookie.
 
 ## Data Model
 
